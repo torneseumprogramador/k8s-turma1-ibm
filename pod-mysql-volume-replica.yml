@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mysql-replicaset
+spec:
+  template:
+    metadata:
+      name: didox-mysql
+      labels:
+        app: didox-mysql
+    spec:
+      containers:
+        - name: container-didox-mysql
+          image: mysql
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: aadfg3gm5ikn
+            - name: MYSQL_DATABASE
+              value: ecommerce
+          volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            name: mypd
+      volumes:
+        - name: mypd
+          persistentVolumeClaim:
+            claimName: myclaim
+  replicas: 2
+  selector:
+    matchLabels:
+      app: didox-mysql
