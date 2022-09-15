@@ -1,0 +1,21 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ibm-turma1-cluster
+  region: us-east-1
+
+vpc:
+  subnets:
+    public:
+      us-east-1a: { id: subnet-ef5b8fa6 }
+      us-east-1b: { id: subnet-1fa24744 }
+      us-east-1f: { id: subnet-b87f10b4 }
+
+nodeGroups:
+  - name: node-group-ibm-turma1-cluster
+    instanceType: t2.medium
+    volumeSize: 30
+    desiredCapacity: 2 # quantidadede maquinas
+    ssh:
+      allow: false

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: didox-ecommerce
+  labels:
+    app: didox-ecommerce
+spec:
+  containers:
+    - name: container-pod-ecommerce
+      image: didox/ecommerce-treinamento-ibm:v0.0.3
+      ports:
+        - containerPort: 8080
+      env:
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_PASS
+          value: aadfg3gm5ikn
+        - name: MYSQL_HOST
+          value: clusterip-mysql
+        - name: DATABASE
+          value: ecommerce

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: apache-replicaset
+spec:
+  template:
+    metadata:
+      name: pod-apache
+      labels:
+        app: pod-apache
+    spec:
+      containers:
+      - name: container-pod-apache
+        image: httpd
+        ports:
+          - containerPort: 80
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pod-apache

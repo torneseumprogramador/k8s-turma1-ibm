@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: didox-apache
+  labels:
+    app: didox-apache
+spec:
+  containers:
+    - name: container-pod-apache
+      image: httpd
+      ports:
+        - containerPort: 80
