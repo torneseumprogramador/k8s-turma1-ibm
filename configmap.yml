@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap
+data:
+  MYSQL_HOST: clusterip-mysql
+  MYSQL_USER: root
+  DATABASE_ECOMERCE: ecommerce

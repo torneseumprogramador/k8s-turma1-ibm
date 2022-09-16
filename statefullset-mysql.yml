@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysqlstatefulset
+spec:
+  selector:
+    matchLabels:
+      app: didox-mysql
+  serviceName: mysqlstatefulset
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: didox-mysql
+    spec:
+      containers:
+        - name: container-pod-mysql
+          image: mysql
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: DATABASE_ECOMERCE
+
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: mypd
+          resources:
+            requests:
+              memory: "300Mi" # 512 MB
+              cpu: "0.2" # 1 milicors VCPU # este recurso tira do meu cluster este recurso #https://www.datacenters.com/news/what-is-a-vcpu-and-how-do-you-calculate-vcpu-to-cpu https://www.hyve.com/what-is-a-vmware-vcpu/
+            limits: # caso a aplicação precise de mais recurso, ele coloca este limite automático
+              memory: "600Mi" # 800 MB
+              cpu: "0.4"
+      volumes:
+        - name: mypd
+          persistentVolumeClaim:
+            claimName: myclaim
+          

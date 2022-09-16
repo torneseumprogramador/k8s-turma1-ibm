@@ -10,8 +10,3 @@ spec:
       image: nginx
       ports:
         - containerPort: 80
-
-
-        172.31.12.77 - didox-nginx
-        172.31.2.155 - didox-apache
-        172.31.30.38 - didox-mysql
