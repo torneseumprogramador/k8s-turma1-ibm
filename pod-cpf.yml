@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: didox-cpf
+  labels:
+    app: didox-cpf
+spec:
+  containers:
+    - name: container-pod-cpf
+      image: didox/validador-cpf-java-turma-devops
+      ports:
+        - containerPort: 8080

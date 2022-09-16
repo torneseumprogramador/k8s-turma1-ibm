@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes  1;
+    events {
+      worker_connections  10240;
+    }
+    http {
+      server {
+        proxy_set_header   X-Forwarded-For $remote_addr;
+        proxy_set_header   Host $http_host;
+        proxy_connect_timeout 300s;
+        proxy_read_timeout 300s;
+        
+        rewrite ^/cpfjava/(.*)  /cpfjava/$1;
+        rewrite ^/ecommerce/(.*)  /ecommerce/$1;
+
+        location = /cpfjava {
+            proxy_pass http://172.31.88.179:8080/;
+        }
+
+        location = /ecommerce {
+            proxy_pass http://172.31.84.241:8080/;
+        }
+
+        location = / {
+            proxy_pass http://172.31.84.241:8080/;
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+          items:
+            - key: nginx.conf
+              path: nginx.conf

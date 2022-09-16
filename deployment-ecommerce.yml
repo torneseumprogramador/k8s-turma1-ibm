@@ -46,7 +46,7 @@ spec:
                   name: db-mysql-secret
                   key: MYSQL_ROOT_PASSWORD
 
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: didox-ecommerce
