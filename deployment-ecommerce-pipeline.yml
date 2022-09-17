@@ -154,14 +154,14 @@ spec:
     matchLabels:
       app: didox-ecommerce
 ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: loadbalancer-ecommerce
-# spec:
-#   type: LoadBalancer
-#   ports:
-#     - port: 80
-#       targetPort: 8090
-#   selector:
-#     app: didox-ecommerce
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-ecommerce
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8090
+  selector:
+    app: didox-ecommerce
