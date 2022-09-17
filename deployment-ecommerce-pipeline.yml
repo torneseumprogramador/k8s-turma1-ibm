@@ -119,7 +119,10 @@ spec:
             - containerPort: 8090
           env:
             - name: MYSQL_PASS
-              value: "123456"
+              valueFrom:
+                secretKeyRef:
+                  name: db-mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
 
             - name: DATABASE
               valueFrom:
