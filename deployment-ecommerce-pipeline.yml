@@ -125,10 +125,16 @@ spec:
               value: "ecommerce"
 
             - name: MYSQL_HOST
-              value: clusterip-mysql
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: MYSQL_HOST
 
             - name: MYSQL_USER
-              value: root
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: MYSQL_USER
 
           resources:
             requests:
