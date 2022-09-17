@@ -131,10 +131,7 @@ spec:
                   key: DATABASE_ECOMERCE
 
             - name: MYSQL_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: mysql-configmap
-                  key: MYSQL_HOST
+              value: clusterip-mysql
 
             - name: MYSQL_USER
               valueFrom:
