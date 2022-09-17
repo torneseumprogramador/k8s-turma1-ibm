@@ -120,12 +120,16 @@ spec:
           env:
             - name: MYSQL_PASS
               value: "123456"
+
             - name: DATABASE
               value: "ecommerce"
+
             - name: MYSQL_HOST
               value: clusterip-mysql
+
             - name: MYSQL_USER
               value: root
+
           resources:
             requests:
               memory: "300Mi" # 512 MB
