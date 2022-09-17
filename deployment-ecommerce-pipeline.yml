@@ -122,7 +122,10 @@ spec:
               value: "123456"
 
             - name: DATABASE
-              value: "ecommerce"
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: DATABASE_ECOMERCE
 
             - name: MYSQL_HOST
               valueFrom:
